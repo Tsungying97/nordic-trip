@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北歐十天旅遊 ✈ 2026</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.9.0/dist/tabler-icons.min.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --purple:#7F77DD;--purple-light:#EEEDFE;--purple-dark:#3C3489;
+    --teal:#1D9E75;--teal-light:#E1F5EE;--teal-dark:#085041;
+    --amber:#BA7517;--amber-light:#FAEEDA;
+    --coral:#D85A30;--coral-light:#FAECE7;
+    --blue:#378ADD;--blue-light:#E6F1FB;--blue-dark:#0C447C;
+    --bg:#f8f8f6;--card:#ffffff;--border:#e5e4e0;
+    --text:#1a1a1a;--text2:#666;--text3:#aaa;
+    --radius:12px;--radius-sm:8px;--radius-pill:20px;
+  }
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  /* Header */
+  .app-header{background:var(--card);border-bottom:1px solid var(--border);padding:14px 16px;position:sticky;top:0;z-index:100}
+  .app-header h1{font-size:17px;font-weight:600;letter-spacing:-0.3px}
+  .app-header .subtitle{font-size:12px;color:var(--text2);margin-top:1px}
+  /* Bottom nav */
+  .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+  .nav-btn{flex:1;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--text3);background:none;border:none;cursor:pointer;transition:color 0.15s}
+  .nav-btn i{font-size:22px}
+  .nav-btn.active{color:var(--purple)}
+  /* Layout */
+  .content{padding:14px 14px 90px}
+  .section{display:none}.section.active{display:block}
+  /* Cards */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px}
+  .card-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  /* Badges */
+  .badge{display:inline-block;font-size:11px;font-weight:500;padding:3px 9px;border-radius:var(--radius-pill)}
+  .bp{background:var(--purple-light);color:var(--purple-dark)}
+  .bt{background:var(--teal-light);color:var(--teal-dark)}
+  .ba{background:var(--amber-light);color:var(--amber)}
+  .bb{background:var(--blue-light);color:var(--blue-dark)}
+  .bc{background:var(--coral-light);color:var(--coral)}
+  /* Today banner */
+  .today-banner{background:var(--purple-light);border-left:3px solid var(--purple);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:12px 16px;margin-bottom:14px}
+  .today-label{font-size:11px;font-weight:600;color:var(--purple);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+  .today-text{font-size:15px;font-weight:600;color:var(--purple-dark)}
+  .today-date{font-size:12px;color:var(--purple);margin-top:2px}
+  /* Day tabs */
+  .day-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:4px;-webkit-overflow-scrolling:touch}
+  .day-tabs::-webkit-scrollbar{display:none}
+  .day-tab{flex-shrink:0;padding:7px 14px;font-size:12px;font-weight:500;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card);color:var(--text2);cursor:pointer;transition:all .15s}
+  .day-tab.active{background:var(--purple);border-color:var(--purple);color:#fff}
+  /* Activities */
+  .act-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .act-row:last-child{border-bottom:none}
+  .act-time{font-size:11px;color:var(--text3);min-width:36px;padding-top:3px;line-height:1.3}
+  .act-dot{width:8px;height:8px;border-radius:50%;background:#c0bdf0;margin-top:4px;flex-shrink:0;transition:background .2s}
+  .act-row.done .act-dot{background:var(--teal)}
+  .act-name{font-size:13px;color:var(--text);flex:1;line-height:1.5}
+  .act-row.done .act-name{text-decoration:line-through;color:var(--text3)}
+  .act-check{font-size:18px;color:var(--text3);transition:color .2s}
+  .act-row.done .act-check{color:var(--teal)}
+  /* Flights */
+  .flight-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .flight-row:last-child{border-bottom:none;padding-bottom:0}
+  .fl-time{font-size:16px;font-weight:600;min-width:46px}
+  .fl-code{font-size:11px;color:var(--text2)}
+  .fl-mid{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+  .fl-num{font-size:11px;color:var(--text2)}
+  .fl-line{width:100%;height:1px;background:var(--border);position:relative}
+  .fl-line::after{content:'▶';position:absolute;right:-4px;top:-7px;font-size:10px;color:var(--text3)}
+  .fl-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  /* Restaurants */
+  .rest-filters{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch}
+  .rest-filters::-webkit-scrollbar{display:none}
+  .filter-chip{flex-shrink:0;padding:6px 14px;font-size:12px;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card);color:var(--text2);cursor:pointer;font-weight:500}
+  .filter-chip.active{background:var(--teal-light);border-color:var(--teal);color:var(--teal-dark)}
+  .rest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:4px}
+  .rest-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;cursor:pointer;transition:border-color .15s}
+  .rest-card.saved{border-color:var(--coral)}
+  .rest-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;display:flex;justify-content:space-between;align-items:flex-start;gap:4px}
+  .rest-heart{font-size:15px;color:var(--text3);transition:color .2s;flex-shrink:0}
+  .rest-card.saved .rest-heart{color:var(--coral)}
+  .rest-stars{color:var(--amber);font-size:11px;margin-bottom:4px}
+  .rest-meta{font-size:11px;color:var(--text2)}
+  /* Photos */
+  .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .photo-cell{aspect-ratio:1;border-radius:var(--radius-sm);overflow:hidden;background:#f0efea;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
+  .photo-cell img{width:100%;height:100%;object-fit:cover;display:block}
+  .photo-day-chip{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,.5);color:#fff;font-size:9px;padding:2px 6px;border-radius:4px}
+  .upload-btn-wrap{margin-top:12px}
+  .upload-btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 18px;cursor:pointer;background:var(--card);font-weight:500}
+  /* Add row */
+  .add-row{display:flex;gap:8px;margin-top:12px}
+  .add-row input,.add-row select{flex:1;font-size:13px;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--card);color:var(--text);outline:none}
+  .add-row input:focus,.add-row select:focus{border-color:var(--purple)}
+  .add-row select{flex:0 0 80px}
+  .btn-add{font-size:13px;padding:8px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--card);color:var(--text2);cursor:pointer;white-space:nowrap;font-weight:500}
+  .btn-add:active{background:var(--bg)}
+  /* Empty */
+  .empty{padding:32px 0;display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--text3)}
+  .empty i{font-size:36px}
+  .empty p{font-size:13px}
+  /* Section heading */
+  .sec-head{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin:16px 0 8px}
+  /* Progress */
+  .prog-bar{height:3px;background:var(--border);border-radius:2px;margin-top:6px;overflow:hidden}
+  .prog-fill{height:100%;background:var(--teal);border-radius:2px;transition:width .3s}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <h1>✈ 北歐六天旅遊</h1>
+  <div class="subtitle" id="header-sub">哥本哈根 → 卑爾根 → 奧斯陸 → 斯德哥爾摩 · 2026</div>
+</div>
+
+<div class="content">
+  <!-- TODAY -->
+  <div id="sec-today" class="section active">
+    <div class="today-banner">
+      <div class="today-label">今天</div>
+      <div class="today-text" id="today-title">載入中…</div>
+      <div class="today-date" id="today-date"></div>
+    </div>
+    <div id="today-acts"></div>
+    <div class="sec-head" style="margin-top:18px">行程進度</div>
+    <div class="card" id="progress-card"></div>
+  </div>
+
+  <!-- FLIGHTS -->
+  <div id="sec-flights" class="section">
+    <div class="sec-head">航班 & 交通</div>
+    <div id="flights-list"></div>
+    <div class="add-row">
+      <input placeholder="新增交通備注…" id="flight-note-input">
+      <button class="btn-add" onclick="addFlightNote()"><i class="ti ti-plus"></i></button>
+    </div>
+  </div>
+
+  <!-- ITINERARY -->
+  <div id="sec-itinerary" class="section">
+    <div class="day-tabs" id="itin-tabs"></div>
+    <div id="itin-content"></div>
+    <div class="add-row">
+      <input placeholder="新增活動…" id="act-input">
+      <select id="act-time">
+        <option>上午</option><option>中午</option><option>下午</option><option>傍晚</option><option>晚上</option>
+      </select>
+      <button class="btn-add" onclick="addActivity()"><i class="ti ti-plus"></i></button>
+    </div>
+  </div>
+
+  <!-- RESTAURANTS -->
+  <div id="sec-restaurants" class="section">
+    <div class="rest-filters" id="rest-filters"></div>
+    <div class="rest-grid" id="rest-grid"></div>
+    <div class="add-row">
+      <input placeholder="餐廳名稱" id="rest-input" style="flex:2">
+      <select id="rest-city">
+        <option value="cph">哥本哈根</option>
+        <option value="osl">奧斯陸</option>
+        <option value="ber">卑爾根</option>
+        <option value="sto">斯德哥爾摩</option>
+      </select>
+      <button class="btn-add" onclick="addRestaurant()"><i class="ti ti-plus"></i></button>
+    </div>
+  </div>
+
+  <!-- PHOTOS -->
+  <div id="sec-photos" class="section">
+    <div class="day-tabs" id="photo-tabs"></div>
+    <div class="photo-grid" id="photo-grid"></div>
+    <div class="upload-btn-wrap">
+      <label class="upload-btn">
+        <i class="ti ti-camera" style="font-size:18px"></i> 上傳照片
+        <input type="file" accept="image/*" multiple style="display:none" onchange="uploadPhotos(this)">
+      </label>
+    </div>
+  </div>
+
+  <!-- BUDGET -->
+  <div id="sec-budget" class="section">
+    <div id="budget-summary"></div>
+    <div id="budget-cats"></div>
+    <div class="sec-head" style="margin-top:16px">實際花費記錄</div>
+    <div id="expense-list"></div>
+    <div class="add-row" style="flex-wrap:wrap;gap:6px">
+      <input placeholder="費用名稱" id="exp-name" style="flex:2;min-width:120px">
+      <input placeholder="金額 (EUR)" id="exp-amount" type="number" style="flex:1;min-width:80px">
+      <select id="exp-cat" style="flex:1;min-width:90px">
+        <option value="flight">機票交通</option>
+        <option value="hotel">住宿</option>
+        <option value="food">餐飲</option>
+        <option value="attraction">景點票</option>
+        <option value="shopping">購物</option>
+        <option value="other">其他</option>
+      </select>
+      <button class="btn-add" onclick="addExpense()">記帳 <i class="ti ti-plus"></i></button>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="switchTab('today',this)" id="nav-today">
+    <i class="ti ti-home"></i><span>今天</span>
+  </button>
+  <button class="nav-btn" onclick="switchTab('flights',this)">
+    <i class="ti ti-plane"></i><span>航班</span>
+  </button>
+  <button class="nav-btn" onclick="switchTab('itinerary',this)">
+    <i class="ti ti-calendar"></i><span>行程</span>
+  </button>
+  <button class="nav-btn" onclick="switchTab('restaurants',this)">
+    <i class="ti ti-tools-kitchen-2"></i><span>餐廳</span>
+  </button>
+  <button class="nav-btn" onclick="switchTab('photos',this)">
+    <i class="ti ti-photo"></i><span>相簿</span>
+  </button>
+  <button class="nav-btn" onclick="switchTab('budget',this)">
+    <i class="ti ti-wallet"></i><span>預算</span>
+  </button>
+</nav>
+
+<script>
+const STORE = 'nordic_site_v2';
+const START = new Date('2026-08-14');
+const CITY_LABELS = {cph:'哥本哈根',osl:'奧斯陸',ber:'卑爾根',sto:'斯德哥爾摩'};
+
+function dayDate(n) {
+  const d = new Date(START);
+  d.setDate(d.getDate() + n - 1);
+  return d.toLocaleDateString('zh-TW',{month:'long',day:'numeric',weekday:'short'});
+}
+
+const DEFAULT = {
+  itinDay: 0,
+  photoDay: 0,
+  restFilter: 'all',
+  flights: [
+    {icon:'ti-plane-departure',title:'台灣 → 哥本哈根',from:'出發',fromCode:'TPE',to:'抵達',toCode:'CPH',info:'含轉機，約14-16小時',day:1,tags:['第1天 8/14','建議早班出發']},
+    {icon:'ti-plane-departure',title:'哥本哈根 → 卑爾根',from:'中午',fromCode:'CPH',to:'約14:00',toCode:'BGO',info:'直飛約 1.5 小時',day:5,tags:['第5天 8/18','建議訂 SK 或 Norwegian']},
+    {icon:'ti-train',title:'挪威縮影（卑爾根 → 奧斯陸）',from:'早上',fromCode:'卑爾根',to:'晚上',toCode:'奧斯陸',info:'火車＋電動觀光船＋高山鐵路',day:6,tags:['第6天 8/19','挪威縮影套票','松恩峽灣','需提前訂票']},
+    {icon:'ti-train',title:'奧斯陸 → 斯德哥爾摩（SJ 高鐵）',from:'中午',fromCode:'Oslo S',to:'傍晚',toCode:'Stockholm C',info:'SJ 高鐵一等艙 · 約 5 小時',day:8,tags:['第8天 8/21','SJ瑞典國鐵','免費咖啡點心']},
+    {icon:'ti-plane-departure',title:'斯德哥爾摩 → 返台',from:'傍晚',fromCode:'ARN',to:'—',toCode:'TPE',info:'Arlanda Express 20 分鐘達機場',day:10,tags:['第10天 8/23','Arlanda Express','提前 3 小時到機場']},
+  ],
+  flightNotes: [],
+  itinerary: [
+    {day:1,city:'cph',title:'D1 台灣出發 ✈ 抵達哥本哈根',acts:[
+      {time:'出發',name:'台灣出發，長途飛行（含轉機約14-16小時）',done:false},
+      {time:'抵達',name:'抵達 CPH，入住飯店，調整時差',done:false},
+      {time:'傍晚',name:'輕鬆漫步新港（Nyhavn）運河，感受丹麥氛圍',done:false},
+      {time:'晚上',name:'找家輕食餐廳，早點休息',done:false}
+    ]},
+    {day:2,city:'cph',title:'D2 哥本哈根慵懶生活',acts:[
+      {time:'上午',name:'新港運河遊船（30分鐘），邊喝咖啡邊賞彩色老屋',done:false},
+      {time:'中午',name:'Torvehallerne 市場午餐，試試北歐小食',done:false},
+      {time:'下午',name:'Strøget 步行街逛街購物',done:false},
+      {time:'晚上',name:'Nyhavn 碼頭挑家喜歡的餐廳吃晚餐',done:false}
+    ]},
+    {day:3,city:'cph',title:'D3 阿馬林堡宮 + 蒂沃利花園',acts:[
+      {time:'上午',name:'阿馬林堡宮廣場，等待衛兵交接（約11:30）',done:false},
+      {time:'上午',name:'小美人魚雕像（步行可達）',done:false},
+      {time:'下午',name:'Tivoli 蒂沃利花園漫步（世界第二古老樂園）',done:false},
+      {time:'晚上',name:'Tivoli 園內餐廳享用晚餐',done:false}
+    ]},
+    {day:4,city:'cph',title:'D4 路易斯安那藝術博物館（近郊半日）',acts:[
+      {time:'上午',name:'搭火車前往 Louisiana 現代藝術博物館（約35分鐘）',done:false},
+      {time:'上午',name:'坐在草地上看著對岸瑞典放空，極度療癒',done:false},
+      {time:'中午',name:'博物館咖啡廳午餐，落地窗海景',done:false},
+      {time:'下午',name:'回哥本哈根，下午自由逛設計小店',done:false},
+      {time:'晚上',name:'打包行李，明早飛卑爾根',done:false}
+    ]},
+    {day:5,city:'ber',title:'D5 飛往卑爾根 + Bryggen',acts:[
+      {time:'中午',name:'搭機 CPH → BGO 直飛（約1.5小時），抵達卑爾根',done:false},
+      {time:'下午',name:'Check-in 飯店，漫步 Bryggen 彩色木屋區（世界遺產）',done:false},
+      {time:'傍晚',name:'Fløibanen 纜車登山，看海港與峽灣日落',done:false},
+      {time:'晚上',name:'漁市場（Fish Market）吃新鮮挪威海鮮',done:false}
+    ]},
+    {day:6,city:'osl',title:'D6 挪威縮影 → 奧斯陸（視覺高潮日）',acts:[
+      {time:'早上',name:'出發！搭火車 卑爾根 → Myrdal',done:false},
+      {time:'上午',name:'換乘 Flåm 高山鐵路（世界最陡鐵路之一）',done:false},
+      {time:'中午',name:'在 Flåm 搭電動觀光船欣賞松恩峽灣峭壁與瀑布',done:false},
+      {time:'下午',name:'換乘繼續往奧斯陸方向前進',done:false},
+      {time:'晚上',name:'抵達奧斯陸，Check-in，好好休息',done:false}
+    ]},
+    {day:7,city:'osl',title:'D7 奧斯陸放空日',acts:[
+      {time:'上午',name:'睡到自然醒！補充峽灣日的體力',done:false},
+      {time:'下午',name:'Aker Brygge 碼頭躺椅曬太陽、喝咖啡',done:false},
+      {time:'下午',name:'奧斯陸國立美術館看孟克《吶喊》真跡',done:false},
+      {time:'晚上',name:'Aker Brygge 碼頭區海鮮晚餐',done:false}
+    ]},
+    {day:8,city:'sto',title:'D8 高鐵穿越大森林 → 斯德哥爾摩',acts:[
+      {time:'中午',name:'Oslo S 搭 SJ 高鐵一等艙出發（免費咖啡點心）',done:false},
+      {time:'途中',name:'欣賞北歐大森林靜謐風景，5小時舒適旅程',done:false},
+      {time:'傍晚',name:'抵達斯德哥爾摩 Stockholm C，Check-in',done:false},
+      {time:'晚上',name:'散步找一家瑞典傳統餐廳，吃肉丸！',done:false}
+    ]},
+    {day:9,city:'sto',title:'D9 斯德哥爾摩經典一日',acts:[
+      {time:'上午',name:'Gamla Stan 中世紀老城區漫步',done:false},
+      {time:'上午',name:'諾貝爾博物館（Gamla Stan 內）',done:false},
+      {time:'下午',name:'瓦薩博物館（17世紀沉船，全球保存最完整）',done:false},
+      {time:'傍晚',name:'搭地鐵體驗「世界最長藝廊」藍線地鐵站壁畫',done:false},
+      {time:'晚上',name:'Östermalm 美食市場晚餐',done:false}
+    ]},
+    {day:10,city:'sto',title:'D10 Fika 早晨 ✈ 返台',acts:[
+      {time:'上午',name:'Södermalm 文青區喝手沖咖啡 + 吃肉桂捲（Fika！）',done:false},
+      {time:'中午',name:'回飯店取行李，辦理 Check-out',done:false},
+      {time:'下午',name:'搭 Arlanda Express（20分鐘）前往 ARN 機場',done:false},
+      {time:'傍晚',name:'辦理登機，準備返台！',done:false}
+    ]}
+  ],
+  restaurants: [
+    {name:'Noma',city:'cph',type:'新北歐料理',stars:5,saved:true,note:'需超前訂位'},
+    {name:'Schønnemann',city:'cph',type:'傳統丹麥',stars:4,saved:false,note:'smørrebrød 名店'},
+    {name:'Louisiana Café',city:'cph',type:'博物館咖啡廳',stars:4,saved:true,note:'落地窗海景，D4必去'},
+    {name:'Torvehallerne',city:'cph',type:'美食市場',stars:4,saved:false,note:'各式北歐小食'},
+    {name:'Bryggeloftet',city:'ber',type:'挪威傳統',stars:4,saved:false,note:'百年老屋，Bryggen 旁'},
+    {name:'Fish Market Bergen',city:'ber',type:'海鮮市場',stars:4,saved:true,note:'D5 晚餐首選'},
+    {name:'Lysverket',city:'ber',type:'創意海鮮',stars:5,saved:false,note:'米其林推薦'},
+    {name:'Maaemo',city:'osl',type:'米其林三星',stars:5,saved:true,note:'挪威最頂級，需訂位'},
+    {name:'Aker Brygge 碼頭餐廳',city:'osl',type:'海鮮／戶外',stars:4,saved:false,note:'曬太陽配海景'},
+    {name:'Frantzén',city:'sto',type:'米其林三星',stars:5,saved:true,note:'瑞典最佳，需訂位'},
+    {name:'Aifur',city:'sto',type:'維京主題',stars:4,saved:false,note:'中世紀氛圍'},
+    {name:'Södermalm 肉桂捲咖啡廳',city:'sto',type:'Fika 文化',stars:4,saved:true,note:'D10 早上必訪'},
+  ],
+  photos: [],
+  expenses: []
+};
+
+let D = (()=>{ try{ const r=localStorage.getItem(STORE); return r?JSON.parse(r):null; }catch(e){return null;} })() || JSON.parse(JSON.stringify(DEFAULT));
+function save(){ try{ localStorage.setItem(STORE,JSON.stringify(D)); }catch(e){} }
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  btn.classList.add('active');
+  const renders = {today:renderToday,flights:renderFlights,itinerary:renderItinerary,restaurants:renderRestaurants,photos:renderPhotos,budget:renderBudget};
+  if(renders[id]) renders[id]();
+}
+
+/* TODAY */
+function renderToday() {
+  const today = new Date();
+  const diff = Math.floor((today - START) / 86400000);
+  const idx = Math.max(0, Math.min(9, diff));
+  const day = D.itinerary[idx];
+  document.getElementById('today-title').textContent = `第 ${day.day} 天 — ${day.title}`;
+  document.getElementById('today-date').textContent = dayDate(day.day) + ' · ' + CITY_LABELS[day.city];
+
+  const done = day.acts.filter(a=>a.done).length;
+  const pct = day.acts.length ? Math.round(done/day.acts.length*100) : 0;
+
+  let html = '<div class="card"><div class="card-title"><i class="ti ti-map-pin" style="font-size:16px"></i>' + day.title + '</div>';
+  html += day.acts.map((a,ai)=>`<div class="act-row ${a.done?'done':''}" onclick="toggleAct(${idx},${ai});renderToday()"><span class="act-time">${a.time}</span><span class="act-dot"></span><span class="act-name">${a.name}</span><i class="ti ti-${a.done?'circle-check':'circle'} act-check"></i></div>`).join('');
+  html += '</div>';
+  document.getElementById('today-acts').innerHTML = html;
+
+  let prog = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:500">今日完成度</span><span style="font-size:13px;color:var(--text2)">'+(done)+' / '+(day.acts.length)+'</span></div><div class="prog-bar"><div class="prog-fill" style="width:'+pct+'%"></div></div>';
+  D.itinerary.forEach((d,i)=>{
+    const dc = d.acts.filter(a=>a.done).length;
+    const dp = d.acts.length ? Math.round(dc/d.acts.length*100) : 0;
+    prog += '<div style="display:flex;align-items:center;gap:8px;margin-top:8px"><span style="font-size:11px;color:var(--text3);min-width:26px">D'+d.day+'</span><div class="prog-bar" style="flex:1"><div class="prog-fill" style="width:'+dp+'%;background:'+(i===idx?'var(--purple)':'var(--teal)')+'"></div></div><span style="font-size:11px;color:var(--text3);min-width:30px;text-align:right">'+dp+'%</span></div>';
+  });
+  document.getElementById('progress-card').innerHTML = prog;
+}
+
+/* FLIGHTS */
+function renderFlights() {
+  let html = '';
+  D.flights.forEach(f=>{
+    html += '<div class="card"><div class="card-title"><i class="ti '+f.icon+'" style="font-size:16px"></i>'+f.title+'</div><div class="flight-row"><div><div class="fl-time">'+f.from+'</div><div class="fl-code">'+f.fromCode+'</div></div><div class="fl-mid"><div class="fl-num">'+f.info+'</div><div class="fl-line"></div></div><div style="text-align:right"><div class="fl-time">'+f.to+'</div><div class="fl-code">'+f.toCode+'</div></div></div><div class="fl-tags">'+f.tags.map(t=>'<span class="badge bp">'+t+'</span>').join('')+'<span class="badge ba">'+dayDate(f.day)+'</span></div></div>';
+  });
+  D.flightNotes.forEach((n,i)=>{
+    html += '<div class="card" style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:13px">'+n+'</span><button onclick="D.flightNotes.splice('+i+',1);save();renderFlights()" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:18px"><i class="ti ti-trash"></i></button></div>';
+  });
+  document.getElementById('flights-list').innerHTML = html;
+}
+function addFlightNote() {
+  const v = document.getElementById('flight-note-input').value.trim();
+  if(!v) return;
+  D.flightNotes.push(v);
+  document.getElementById('flight-note-input').value='';
+  save(); renderFlights();
+}
+
+/* ITINERARY */
+function renderItinerary() {
+  const tabs = document.getElementById('itin-tabs');
+  tabs.innerHTML = D.itinerary.map((d,i)=>'<button class="day-tab '+(i===D.itinDay?'active':'')+'" onclick="D.itinDay='+i+';save();renderItinerary()">D'+d.day+' '+CITY_LABELS[d.city].slice(0,2)+'</button>').join('');
+  const day = D.itinerary[D.itinDay];
+  let html = '<div class="card"><div class="card-title"><i class="ti ti-map-pin" style="font-size:16px"></i>'+day.title+'<span class="badge bp" style="margin-left:auto;font-size:11px">'+CITY_LABELS[day.city]+'</span></div>';
+  html += '<div style="font-size:11px;color:var(--text3);margin-bottom:10px">'+dayDate(day.day)+'</div>';
+  html += day.acts.map((a,ai)=>'<div class="act-row '+(a.done?'done':'')+'" onclick="toggleAct('+D.itinDay+','+ai+');renderItinerary()"><span class="act-time">'+a.time+'</span><span class="act-dot"></span><span class="act-name">'+a.name+'</span><i class="ti ti-'+(a.done?'circle-check':'circle')+' act-check"></i></div>').join('');
+  html += '</div>';
+  document.getElementById('itin-content').innerHTML = html;
+}
+function toggleAct(di, ai){ D.itinerary[di].acts[ai].done=!D.itinerary[di].acts[ai].done; save(); }
+function addActivity() {
+  const v = document.getElementById('act-input').value.trim();
+  const t = document.getElementById('act-time').value;
+  if(!v) return;
+  D.itinerary[D.itinDay].acts.push({time:t,name:v,done:false});
+  document.getElementById('act-input').value='';
+  save(); renderItinerary();
+}
+
+/* RESTAURANTS */
+function renderRestaurants() {
+  const cities = ['all','cph','osl','ber','sto'];
+  const labels = {all:'全部',cph:'哥本哈根',osl:'奧斯陸',ber:'卑爾根',sto:'斯德哥爾摩'};
+  document.getElementById('rest-filters').innerHTML = cities.map(c=>'<button class="filter-chip '+(D.restFilter===c?'active':'')+'" onclick="D.restFilter=\''+c+'\';save();renderRestaurants()">'+labels[c]+'</button>').join('');
+  const list = D.restaurants.filter(r=>D.restFilter==='all'||r.city===D.restFilter);
+  if(!list.length){
+    document.getElementById('rest-grid').innerHTML='<div class="empty" style="grid-column:1/-1"><i class="ti ti-tools-kitchen-2"></i><p>還沒有餐廳</p></div>';
+    return;
+  }
+  document.getElementById('rest-grid').innerHTML = list.map((r,i)=>{
+    const gi = D.restaurants.indexOf(r);
+    return '<div class="rest-card '+(r.saved?'saved':'')+'" onclick="D.restaurants['+gi+'].saved=!D.restaurants['+gi+'].saved;save();renderRestaurants()"><div class="rest-name"><span>'+r.name+'</span><i class="ti ti-heart rest-heart"></i></div><div class="rest-stars">'+'★'.repeat(r.stars)+'☆'.repeat(5-r.stars)+'</div><div class="rest-meta">'+CITY_LABELS[r.city]+'</div><div style="font-size:11px;color:var(--text3);margin-top:3px">'+r.type+(r.note?' · '+r.note:'')+'</div></div>';
+  }).join('');
+}
+function addRestaurant() {
+  const n = document.getElementById('rest-input').value.trim();
+  const c = document.getElementById('rest-city').value;
+  if(!n) return;
+  D.restaurants.push({name:n,city:c,type:'自訂',stars:4,saved:false,note:''});
+  document.getElementById('rest-input').value='';
+  save(); renderRestaurants();
+}
+
+/* PHOTOS */
+function renderPhotos() {
+  const allDays = [{label:'全部',val:0},...D.itinerary.map(d=>({label:'D'+d.day,val:d.day}))];
+  document.getElementById('photo-tabs').innerHTML = allDays.map(d=>'<button class="day-tab '+(D.photoDay===d.val?'active':'')+'" onclick="D.photoDay='+d.val+';save();renderPhotos()">'+d.label+'</button>').join('');
+  const photos = D.photoDay===0 ? D.photos : D.photos.filter(p=>p.day===D.photoDay);
+  if(!photos.length){
+    document.getElementById('photo-grid').innerHTML='<div class="empty" style="grid-column:1/-1"><i class="ti ti-camera"></i><p>還沒有照片</p></div>';
+    return;
+  }
+  document.getElementById('photo-grid').innerHTML = photos.map(p=>'<div class="photo-cell"><img src="'+p.src+'" alt="'+p.name+'"><span class="photo-day-chip">D'+p.day+'</span></div>').join('');
+}
+function uploadPhotos(input) {
+  const files = Array.from(input.files);
+  let loaded = 0;
+  files.forEach(file=>{
+    const reader = new FileReader();
+    reader.onload = e=>{
+      D.photos.push({src:e.target.result,name:file.name,day:D.photoDay||1});
+      loaded++;
+      if(loaded===files.length){save();renderPhotos();}
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+
+/* BUDGET */
+const EUR_NTD = 35;
+const BUDGET_PLAN = [
+  {cat:'flight',   label:'機票交通', icon:'ti-plane',          budget:1800, note:'含來回機票、歐洲內陸航班、高鐵、挪威縮影'},
+  {cat:'hotel',    label:'住宿',     icon:'ti-bed',            budget:900,  note:'10晚 × 約 €90/晚/雙人房'},
+  {cat:'food',     label:'餐飲',     icon:'ti-tools-kitchen-2',budget:600,  note:'10天 × 約 €30/人/天'},
+  {cat:'attraction',label:'景點票', icon:'ti-ticket',          budget:200,  note:'博物館、纜車、挪威縮影套票'},
+  {cat:'shopping', label:'購物',     icon:'ti-shopping-bag',   budget:300,  note:'伴手禮、日用品'},
+  {cat:'other',    label:'其他',     icon:'ti-dots',           budget:200,  note:'網路、保險、緊急備用'},
+];
+const CAT_COLORS = {flight:'#7F77DD',hotel:'#1D9E75',food:'#D85A30',attraction:'#378ADD',shopping:'#D4537E',other:'#888780'};
+
+function eur(n){ return '€'+Math.round(n).toLocaleString(); }
+function ndt(n){ return 'NT$'+Math.round(n*EUR_NTD).toLocaleString(); }
+function fmt(n){ return eur(n)+' <span style="color:var(--text3);font-size:11px">'+ndt(n)+'</span>'; }
+
+function renderBudget(){
+  const totalBudget = BUDGET_PLAN.reduce((s,c)=>s+c.budget,0);
+  const spent = BUDGET_PLAN.map(c=>({
+    cat:c.cat,
+    total: (D.expenses||[]).filter(e=>e.cat===c.cat).reduce((s,e)=>s+Number(e.amount),0)
+  }));
+  const totalSpent = spent.reduce((s,c)=>s+c.total,0);
+  const remaining = totalBudget - totalSpent;
+  const pct = Math.min(100,Math.round(totalSpent/totalBudget*100));
+
+  // Summary cards
+  let sum = '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">';
+  [{label:'總預算（2人）',val:totalBudget,color:'var(--text)'},{label:'已花費',val:totalSpent,color:totalSpent>totalBudget?'#E24B4A':'#1D9E75'},{label:'剩餘',val:remaining,color:remaining<0?'#E24B4A':'var(--text)'}].forEach(m=>{
+    sum += '<div style="background:var(--bg);border-radius:var(--radius-sm);padding:10px 10px"><div style="font-size:10px;color:var(--text3);margin-bottom:4px">'+m.label+'</div><div style="font-size:14px;font-weight:600;color:'+m.color+'">'+eur(m.val)+'</div><div style="font-size:10px;color:var(--text3);margin-top:1px">'+ndt(m.val)+'</div></div>';
+  });
+  sum += '</div>';
+  sum += '<div style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:5px"><span>使用進度</span><span>'+pct+'%</span></div><div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+(pct>90?'#E24B4A':pct>70?'#BA7517':'#1D9E75')+';border-radius:3px;transition:width .4s"></div></div></div>';
+  document.getElementById('budget-summary').innerHTML = sum;
+
+  // Category breakdown
+  let cats = '<div class="sec-head">分類預算</div>';
+  BUDGET_PLAN.forEach(c=>{
+    const s = spent.find(x=>x.cat===c.cat).total;
+    const p = Math.min(100,Math.round(s/c.budget*100));
+    const over = s > c.budget;
+    cats += '<div class="card" style="margin-bottom:8px">';
+    cats += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
+    cats += '<div style="width:34px;height:34px;border-radius:8px;background:'+CAT_COLORS[c.cat]+'22;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti '+c.icon+'" style="font-size:17px;color:'+CAT_COLORS[c.cat]+'"></i></div>';
+    cats += '<div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;font-weight:600">'+c.label+'</span><span style="font-size:12px;color:'+(over?'#E24B4A':CAT_COLORS[c.cat])+'">'+eur(s)+' / '+eur(c.budget)+'</span></div>';
+    cats += '<div style="font-size:10px;color:var(--text3);margin-top:1px">'+c.note+'</div></div></div>';
+    cats += '<div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden"><div style="height:100%;width:'+p+'%;background:'+(over?'#E24B4A':CAT_COLORS[c.cat])+';border-radius:2px"></div></div>';
+    cats += '</div>';
+  });
+  document.getElementById('budget-cats').innerHTML = cats;
+
+  // Expense list
+  const exps = D.expenses||[];
+  if(!exps.length){
+    document.getElementById('expense-list').innerHTML='<div style="text-align:center;padding:16px 0;font-size:13px;color:var(--text3)">還沒有記帳，從下方開始記錄</div>';
+    return;
+  }
+  let ehtml = '';
+  [...exps].reverse().forEach((e,ri)=>{
+    const i = exps.length-1-ri;
+    const c = BUDGET_PLAN.find(x=>x.cat===e.cat)||{label:'其他',icon:'ti-dots'};
+    ehtml += '<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)">';
+    ehtml += '<div style="width:8px;height:8px;border-radius:50%;background:'+CAT_COLORS[e.cat]+';flex-shrink:0"></div>';
+    ehtml += '<span style="flex:1;font-size:13px">'+e.name+'</span>';
+    ehtml += '<span style="font-size:11px;color:var(--text3)">'+c.label+'</span>';
+    ehtml += '<span style="font-size:13px;font-weight:500;color:'+CAT_COLORS[e.cat]+';margin-left:8px">'+eur(e.amount)+'</span>';
+    ehtml += '<button onclick="D.expenses.splice('+i+',1);save();renderBudget()" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px;padding:0 4px"><i class="ti ti-x"></i></button>';
+    ehtml += '</div>';
+  });
+  document.getElementById('expense-list').innerHTML = '<div class="card">'+ehtml+'</div>';
+}
+
+function addExpense(){
+  const n = document.getElementById('exp-name').value.trim();
+  const a = parseFloat(document.getElementById('exp-amount').value);
+  const c = document.getElementById('exp-cat').value;
+  if(!n||!a||a<=0) return;
+  if(!D.expenses) D.expenses=[];
+  D.expenses.push({name:n,amount:a,cat:c,date:new Date().toLocaleDateString('zh-TW')});
+  document.getElementById('exp-name').value='';
+  document.getElementById('exp-amount').value='';
+  save(); renderBudget();
+}
+
+renderToday();
+</script>
+</body>
+</html>
